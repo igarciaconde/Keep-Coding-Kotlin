@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GangameIñigo</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_top_rated">Top rated</string>
+    <string name="title_most_owned">Most owned</string>
+    <string name="title_top_sales">Deals</string>
+    <string name="rating_label">Ratings</string>
+    <string name="text_deal">Deal price</string>
+    <string name="text_original">Original</string>
+</resources>

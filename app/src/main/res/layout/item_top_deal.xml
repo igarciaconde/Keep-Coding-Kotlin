@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="deal"
+            type="com.example.gangameiigo.model.Deal" />
+    </data>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="5dp"
+        android:id="@+id/item">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:background="@color/colorPrimary">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.26" />
+
+            <ImageView
+                android:id="@+id/image_item"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                app:imageUrl="@{deal.imageThumb}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guide_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@android:color/white"
+                android:maxLines="2"
+                android:text="@{deal.title}"
+                tools:text="The Lord of the Rings"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guide_line"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_rating"
+                android:layout_width="57dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/rating_label"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/text_title"
+                app:layout_constraintTop_toBottomOf="@+id/text_title" />
+
+            <TextView
+                android:id="@+id/rating_points1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_metacritic_rating"
+                android:drawablePadding="4dp"
+                android:text="@{String.valueOf(deal.metaRating)}"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/text_title"
+                app:layout_constraintTop_toBottomOf="@+id/text_rating"
+                tools:text="52" />
+
+            <TextView
+                android:id="@+id/rating_points2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:drawableLeft="@drawable/ic_steam_rating"
+                android:drawablePadding="4dp"
+                android:text="@{String.valueOf(deal.steamRating)}"
+                tools:text="44"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/rating_points1"
+                app:layout_constraintTop_toTopOf="@+id/rating_points1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <TextView
+                android:id="@+id/text_deal"
+                android:layout_width="65dp"
+                android:layout_height="22dp"
+                android:text="@string/text_deal"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/guideline3"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.46" />
+
+            <TextView
+                android:id="@+id/text_original"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/text_original"
+                android:textColor="#6F6E6E"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+            <TextView
+                android:id="@+id/deal_price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="6"
+                android:text="@{deal.dealPriceFormatted}"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/text_deal"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/text_deal"
+                app:layout_constraintTop_toTopOf="@+id/guideline3"
+                tools:text="$9.99" />
+
+            <TextView
+                android:id="@+id/original_price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:maxLength="6"
+                android:text="@{deal.orgPriceFormatted}"
+                android:textColor="#6F6E6E"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/text_original"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="@+id/text_original"
+                app:layout_constraintTop_toBottomOf="@+id/text_original"
+                tools:text="$199.99" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
