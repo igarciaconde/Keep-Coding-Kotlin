@@ -1,25 +1,31 @@
 package com.example.mysdk
 
+import com.example.mysdk.serializer.ListTopGamesDeserializer
 import com.example.mysdk.serializer.TopGameDeserializer
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class GangGameServiceApi {
+class GangGameServiceApi(val apiConfig: GangGameApiConfig = GangGameClientConfig()) {
 
-    val serviceApi : RetrofitAPI
+    val serviceApiClient : RetrofitAPI
 
     init {
+        val tokenType = object : TypeToken<ArrayList<TopGame>>(){}.type
+
         val gson = GsonBuilder()
             .registerTypeAdapter(TopGame::class.java, TopGameDeserializer())
+            .registerTypeAdapter(tokenType, ListTopGamesDeserializer())
             .create()
 
-        val serviceClient = Retrofit.Builder()
+        val serviceClientConfig = Retrofit.Builder()
             .baseUrl(Routes.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
 
-        serviceApi = serviceClient.create(RetrofitAPI::class.java)
+
+        apiConfig.setUp(serviceClientConfig)
+
+        serviceApiClient = serviceClientConfig.build().create(RetrofitAPI::class.java)
     }
 }
