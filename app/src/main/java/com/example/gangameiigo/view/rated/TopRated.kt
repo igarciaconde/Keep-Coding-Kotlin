@@ -1,129 +1,51 @@
 package com.example.gangameiigo.view.rated
 
 
-import android.os.Bundle
+
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commons.BaseLineFragment
-import com.example.commons.DataBindingViewHolderApadter
+import com.example.commons.DataBindingViewHolderAdapter
 import com.example.gangameiigo.BR
 import com.example.gangameiigo.R
+import com.example.gangameiigo.model.GangGameDataSource
 import com.example.gangameiigo.model.TopGame
+import com.google.android.material.snackbar.Snackbar
 
 
 class TopRated : BaseLineFragment() {
 
-    override fun getAdapter(): RecyclerView.Adapter<*> = DataBindingViewHolderApadter<TopGame>(BR.game, R.layout.item_top_game)
+    override fun getAdapter(): RecyclerView.Adapter<*> = DataBindingViewHolderAdapter<TopGame>(BR.game, R.layout.item_top_game)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        (listAdapter as DataBindingViewHolderApadter<TopGame>).items.addAll(getThumbItems())
-        listAdapter.notifyDataSetChanged()
+    override fun onResume() {
+        super.onResume()
+        showRated()
     }
 
-    fun getThumbItems(): ArrayList<TopGame> {
-        return arrayListOf(
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22F,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            ),
-            TopGame(
-                "Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                5600000,
-                22f,
-                "Valve",
-                12
-            )
-        )
+    private fun showRated(){
+        GangGameDataSource
+            .getTopRated()
+            .subscribe({ list ->
+                replaceItems(list)},
+                { error ->
+                    showError(error)})
+    }
+
+    private fun replaceItems(list: ArrayList<TopGame>) {
+        with(listAdapter as DataBindingViewHolderAdapter<TopGame>){
+            items.clear()
+            items.addAll(list)
+            notifyDataSetChanged()
+        }
+    }
+
+    private fun showError(error: Throwable) {
+        error.printStackTrace()
+        view?.let {
+            Snackbar.make(view as View, R.string.errorMessage, Snackbar.LENGTH_LONG)
+                .setAction(R.string.label_retry, { _ : View -> showRated()})
+                .show()
+        }
     }
 
 }

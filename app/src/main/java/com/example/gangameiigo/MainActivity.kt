@@ -18,9 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     val fragments : HashMap<Int, Fragment> = hashMapOf(
         Pair(R.id.navigation_deals, TopDeals()),
-        Pair(R.id.navigation_owned, TopOwned()),
-        Pair(R.id.navigation_rated, TopRated())
-
+        Pair(R.id.navigation_rated, TopRated()),
+        Pair(R.id.navigation_owned, TopOwned())
     )
 
 
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun replaceFragment(frag : Fragment){
+    private fun replaceFragment(frag : Fragment){
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, frag)
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun initView(){
+    private fun initView(){
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
         if(fragment == null){

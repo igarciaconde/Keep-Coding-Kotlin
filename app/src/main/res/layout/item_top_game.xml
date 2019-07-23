@@ -47,17 +47,18 @@
                 android:layout_width="153dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
                 android:maxLines="2"
-                tools:text="The Lord of the Rings"
                 android:text="@{game.title}"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="@+id/guide_line"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="The Lord of the Rings" />
 
             <TextView
                 android:id="@+id/designer_name"
@@ -76,16 +77,16 @@
                 android:id="@+id/rating_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="14dp"
                 android:drawableLeft="@drawable/ic_steam_rating"
                 android:drawablePadding="4dp"
-                tools:text="50"
                 android:text="@{String.valueOf(game.steamRating)}"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/text_title_owned"
-                app:layout_constraintTop_toBottomOf="@+id/designer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/designer_name"
+                tools:text="50" />
 
             <TextView
                 android:id="@+id/owners_number"
@@ -94,7 +95,7 @@
                 android:layout_marginStart="16dp"
                 android:drawableLeft="@drawable/ic_owners"
                 android:drawablePadding="4dp"
-                android:text="@{String.valueOf(game.owners)}"
+                android:text="@{game.owners}"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -114,8 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:maxLength="6"
-                android:text="@{game.priceFormatted}"
+                android:text="@{game.price}"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 android:textStyle="bold"

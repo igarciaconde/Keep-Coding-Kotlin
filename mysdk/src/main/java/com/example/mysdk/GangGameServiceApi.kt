@@ -5,6 +5,7 @@ import com.example.mysdk.serializer.TopGameDeserializer
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class GangGameServiceApi(val apiConfig: GangGameApiConfig = GangGameClientConfig()) {
@@ -22,6 +23,7 @@ class GangGameServiceApi(val apiConfig: GangGameApiConfig = GangGameClientConfig
         val serviceClientConfig = Retrofit.Builder()
             .baseUrl(Routes.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
 
         apiConfig.setUp(serviceClientConfig)

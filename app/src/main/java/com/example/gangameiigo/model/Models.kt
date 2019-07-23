@@ -37,11 +37,7 @@ data class Deal(var title : String,
 data class TopGame(var title: String,
                    var imageThumb: String,
                    var steamRating: Int,
-                   var owners: Int,
-                   var price: Float,
+                   var owners: String,
+                   var price: String,
                    var designer: String,
-                   var position: Int){
-
-    val priceFormatted: String
-    get() = PriceFormater.priceFormat(price)
-}
+                   var position: Int)

@@ -1,85 +1,54 @@
 package com.example.gangameiigo.view.deals
 
 
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commons.BaseLineFragment
-import com.example.commons.DataBindingViewHolderApadter
+import com.example.commons.DataBindingViewHolderAdapter
 import com.example.gangameiigo.BR
 import com.example.gangameiigo.R
 import com.example.gangameiigo.model.Deal
+import com.example.gangameiigo.model.GangGameDataSource
+import com.google.android.material.snackbar.Snackbar
 
 
 class TopDeals : BaseLineFragment() {
 
 
-    override fun getAdapter(): RecyclerView.Adapter<*> = DataBindingViewHolderApadter<Deal>(BR.deal, R.layout.item_top_deal)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun getAdapter(): RecyclerView.Adapter<*> = DataBindingViewHolderAdapter<Deal>(BR.deal, R.layout.item_top_deal)
 
 
-        (listAdapter as DataBindingViewHolderApadter<Deal>)?.items.addAll(getThumbItems())
-        listAdapter.notifyDataSetChanged()
+    override fun onResume() {
+        super.onResume()
+        showItems()
     }
 
-    private fun getThumbItems(): ArrayList<Deal>{
-        return arrayListOf( Deal("Counter Strike",
-            "http://lorempixel.com/400/200/",
-            80,
-            56,
-            22f,
-            45f),
-
-            Deal("Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                56,
-                22f,
-                45f),
-
-            Deal("Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                56,
-                22f,
-                45f),
-
-            Deal("Counter Strike",
-                "http://lorempixel.com/400/200/",
-                80,
-                56,
-                22f,
-                45f),
-
-            Deal("Counter Strike",
-                "http://lorempixel.com/400/200/",
-            80,
-            56,
-            22f,
-            45f),
-
-            Deal("Counter Strike",
-                "http://lorempixel.com/400/200/",
-            80,
-            56,
-            22f,
-            45f),
-
-            Deal("Counter Strike",
-                "http://lorempixel.com/400/200/",
-            80,
-            56,
-            22f,
-            45f),
-
-            Deal("Counter Strike",
-                "http://lorempixel.com/400/200/",
-            80,
-            56,
-            22f,
-            45f))
+    private fun showItems() {
+        GangGameDataSource
+            .getDeals()
+            .subscribe( { list ->
+                replaceItems(list)},
+                { error ->
+                    showErrors(error)})
     }
+
+    private fun replaceItems(list : ArrayList<Deal>){
+        with(listAdapter as DataBindingViewHolderAdapter<Deal>){
+            items.clear()
+            items.addAll(list)
+            notifyDataSetChanged()
+        }
+
+    }
+
+    private fun showErrors(error: Throwable) {
+        error.printStackTrace()
+        view?.let {
+            Snackbar.make(view as View, R.string.errorMessage, Snackbar.LENGTH_LONG)
+                .setAction(R.string.label_retry, { _ : View -> showItems()})
+                .show()
+        }
+    }
+
 
 }

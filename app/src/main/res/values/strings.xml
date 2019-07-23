@@ -9,4 +9,7 @@
     <string name="rating_label">Ratings</string>
     <string name="text_deal">Deal price</string>
     <string name="text_original">Original</string>
+    <string name="errorMessage">Something wrong happened</string>
+    <string name="label_retry">Retry</string>
+    <string name="not_in_sale">It is no longer for sale</string>
 </resources>

@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-class DataBindingViewHolderApadter <MODEL> (val variableBindingId : Int, val viewResId: Int): RecyclerView.Adapter<DataBindingViewHolder<MODEL>>() {
+class DataBindingViewHolderAdapter <MODEL> (val variableBindingId : Int, val viewResId: Int): RecyclerView.Adapter<DataBindingViewHolder<MODEL>>() {
 
     val items : MutableList<MODEL> = mutableListOf()
 
