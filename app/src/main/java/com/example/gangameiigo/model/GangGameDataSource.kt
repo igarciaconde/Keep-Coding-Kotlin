@@ -30,7 +30,6 @@ object GangGameDataSource {
     }
 
 
-
     fun getTopOwned(): io.reactivex.Observable<ArrayList<TopGame>> {
         return apiService.serviceApiClient
             .getOwnedObservable()
