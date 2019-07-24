@@ -3,4 +3,7 @@
     package="com.example.mysdk">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>/>
 
+    <application
+        android:usesCleartextTraffic="true"></application>
+
 </manifest>
