@@ -1,5 +1,4 @@
-package com.example.gangameiigo.view.rated
-
+package com.example.gangameiigo.owned.view
 
 
 import android.view.View
@@ -8,27 +7,33 @@ import com.example.commons.BaseLineFragment
 import com.example.commons.DataBindingViewHolderAdapter
 import com.example.gangameiigo.BR
 import com.example.gangameiigo.R
+import com.example.gangameiigo.model.DealMapper
 import com.example.gangameiigo.model.GangGameDataSource
 import com.example.gangameiigo.model.TopGame
+import com.example.gangameiigo.model.TopGameMapper
+import com.example.gangameiigo.owned.viewModel.Owned
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.JsonObject
 
 
-class TopRated : BaseLineFragment() {
+class TopOwned : BaseLineFragment() {
 
-    override fun getAdapter(): RecyclerView.Adapter<*> = DataBindingViewHolderAdapter<TopGame>(BR.game, R.layout.item_top_game)
+    val model = Owned()
+
+    override fun getAdapter(): RecyclerView.Adapter<*> =
+        DataBindingViewHolderAdapter<TopGame>(BR.game, R.layout.item_top_game)
 
     override fun onResume() {
         super.onResume()
-        showRated()
+        showOwned()
     }
 
-    private fun showRated(){
+    private fun showOwned(){
         GangGameDataSource
-            .getTopRated()
+            .getTopOwned()
             .subscribe({ list ->
                 replaceItems(list)},
-                { error ->
-                    showError(error)})
+                { error -> showError(error)})
     }
 
     private fun replaceItems(list: ArrayList<TopGame>) {
@@ -43,9 +48,14 @@ class TopRated : BaseLineFragment() {
         error.printStackTrace()
         view?.let {
             Snackbar.make(view as View, R.string.errorMessage, Snackbar.LENGTH_LONG)
-                .setAction(R.string.label_retry, { _ : View -> showRated()})
+                .setAction(R.string.label_retry, { _ : View -> showOwned()})
                 .show()
         }
+        val ownedList = arrayListOf<TopGame>()
+        model.getCache().map { list ->
+            
+        }
+        replaceItems(ownedList)
     }
 
 }

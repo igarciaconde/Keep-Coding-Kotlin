@@ -1,4 +1,5 @@
-package com.example.gangameiigo.view.owned
+package com.example.gangameiigo.rated.view
+
 
 
 import android.view.View
@@ -12,23 +13,22 @@ import com.example.gangameiigo.model.TopGame
 import com.google.android.material.snackbar.Snackbar
 
 
-class TopOwned : BaseLineFragment() {
+class TopRated : BaseLineFragment() {
 
-
-    override fun getAdapter(): RecyclerView.Adapter<*> =
-        DataBindingViewHolderAdapter<TopGame>(BR.game, R.layout.item_top_game)
+    override fun getAdapter(): RecyclerView.Adapter<*> = DataBindingViewHolderAdapter<TopGame>(BR.game, R.layout.item_top_game)
 
     override fun onResume() {
         super.onResume()
-        showOwned()
+        showRated()
     }
 
-    private fun showOwned(){
+    private fun showRated(){
         GangGameDataSource
-            .getTopOwned()
+            .getTopRated()
             .subscribe({ list ->
                 replaceItems(list)},
-                { error -> showError(error)})
+                { error ->
+                    showError(error)})
     }
 
     private fun replaceItems(list: ArrayList<TopGame>) {
@@ -43,7 +43,7 @@ class TopOwned : BaseLineFragment() {
         error.printStackTrace()
         view?.let {
             Snackbar.make(view as View, R.string.errorMessage, Snackbar.LENGTH_LONG)
-                .setAction(R.string.label_retry, { _ : View -> showOwned()})
+                .setAction(R.string.label_retry, { _ : View -> showRated()})
                 .show()
         }
     }

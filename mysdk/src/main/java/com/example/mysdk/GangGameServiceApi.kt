@@ -8,9 +8,11 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class GangGameServiceApi(val apiConfig: GangGameApiConfig = GangGameClientConfig()) {
+class GangGameServiceApi(val apiConfig: GangGameApiConfig = GangGameClientConfig(), val apiConfigCache: GangGameApiConfig = GangGameClientConfig()) {
 
     val serviceApiClient : RetrofitAPI
+
+    val serviceCacheApiClient : RetrofitAPI
 
     init {
         val tokenType = object : TypeToken<ArrayList<TopGame>>(){}.type
@@ -29,5 +31,17 @@ class GangGameServiceApi(val apiConfig: GangGameApiConfig = GangGameClientConfig
         apiConfig.setUp(serviceClientConfig)
 
         serviceApiClient = serviceClientConfig.build().create(RetrofitAPI::class.java)
+
+
+        ///init service cache
+
+        val serviceClientCacheConfig = Retrofit.Builder()
+            .baseUrl(Routes.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+
+        apiConfigCache.setUp(serviceClientCacheConfig)
+        serviceCacheApiClient = serviceClientCacheConfig.build().create(RetrofitAPI::class.java)
+
     }
 }

@@ -3,9 +3,10 @@ package com.example.gangameiigo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.gangameiigo.view.deals.TopDeals
-import com.example.gangameiigo.view.owned.TopOwned
-import com.example.gangameiigo.view.rated.TopRated
+import com.example.gangameiigo.deals.view.TopDeals
+import com.example.gangameiigo.model.CacheManager
+import com.example.gangameiigo.owned.view.TopOwned
+import com.example.gangameiigo.rated.view.TopRated
 import kotlinx.android.synthetic.main.activity_main.*
 
 //7.14
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                 replaceFragment(frag)
             true
         }
+
     }
 
 

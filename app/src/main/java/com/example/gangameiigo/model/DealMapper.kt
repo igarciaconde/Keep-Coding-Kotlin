@@ -1,5 +1,7 @@
 package com.example.gangameiigo.model
 
+import com.google.gson.JsonObject
+
 object DealMapper {
 
 
@@ -10,4 +12,8 @@ object DealMapper {
         deal.metaRating,
         deal.orgPrice,
         deal.dealPrice)
+
+
+    fun fromCache(json : JsonObject) = Deal(json["title"].asString, json["thumb"].asString, json["steamRatingPercent"].asInt,
+        json["metacriticScore"].asInt, json["normalPrice"].asFloat, json["salePrice"].asFloat)
 }

@@ -1,12 +1,10 @@
 package com.example.gangameiigo.model
 
-import android.database.Observable
-import com.example.mysdk.Deal
+
 import com.example.mysdk.GangGameServiceApi
+import com.google.gson.JsonArray
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
-import java.util.concurrent.ScheduledExecutorService
 import kotlin.Comparator
 import kotlin.collections.ArrayList
 
@@ -15,13 +13,14 @@ object GangGameDataSource {
 
     private val apiService = GangGameServiceApi()
 
-    fun getDeals(): io.reactivex.Observable<ArrayList<com.example.gangameiigo.model.Deal>> {
+    fun getDeals(): io.reactivex.Observable<ArrayList<Deal>> {
         return apiService.serviceApiClient
             .getDealsObservable()
             .map { listDeal ->
                 val deals = listDeal.map { deal ->
-                    DealMapper.fromSdk(deal) }
-                val arrayDeal = arrayListOf<com.example.gangameiigo.model.Deal>()
+                    DealMapper.fromSdk(deal)
+                }
+                val arrayDeal = arrayListOf<Deal>()
                 arrayDeal.addAll(deals)
                 arrayDeal
             }
@@ -68,4 +67,9 @@ object GangGameDataSource {
             .subscribeOn(Schedulers.io())
     }
 
+
+
+
 }
+
+
