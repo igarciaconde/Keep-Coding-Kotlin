@@ -1,9 +1,6 @@
 package com.example.gangameiigo.model
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import com.example.commons.*
-import com.squareup.picasso.Picasso
+
 
 object PriceFormater{
 

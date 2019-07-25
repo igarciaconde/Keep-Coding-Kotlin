@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class DataBindingViewHolderAdapter <MODEL> (val variableBindingId : Int, val viewResId: Int): RecyclerView.Adapter<DataBindingViewHolder<MODEL>>() {
 
     val items : MutableList<MODEL> = mutableListOf()
+    
 
     override fun getItemCount() = items.size
 

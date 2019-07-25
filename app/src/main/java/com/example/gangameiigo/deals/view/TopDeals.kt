@@ -41,12 +41,14 @@ class TopDeals : BaseLineFragment() {
             items.clear()
             items.addAll(list)
             notifyDataSetChanged()
+
         }
 
     }
 
     private fun showErrors(error: Throwable) {
         error.printStackTrace()
+        //Dispatching cache data
         val deals = arrayListOf<Deal>()
         model.getCache().map { list ->
             deals.add(DealMapper.fromCache(list))

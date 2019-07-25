@@ -1,15 +1,17 @@
 package com.example.gangameiigo
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gangameiigo.deals.view.TopDeals
-import com.example.gangameiigo.model.CacheManager
 import com.example.gangameiigo.owned.view.TopOwned
 import com.example.gangameiigo.rated.view.TopRated
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.contentView
 
-//7.14
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if(isNetworkAvailable()){
+           initWithConnection()
+        }else{
+            Snackbar.make(contentView!!, "Check network signal", Snackbar.LENGTH_LONG)
+        }
+    }
+
+
+
+
+    private fun initWithConnection()
+    {
         initView()
 
         nav_view.selectedItemId = DEFAULT_OPTION
@@ -39,9 +53,7 @@ class MainActivity : AppCompatActivity() {
                 replaceFragment(frag)
             true
         }
-
     }
-
 
 
     private fun replaceFragment(frag : Fragment){
@@ -63,5 +75,13 @@ class MainActivity : AppCompatActivity() {
                 .commit()
 
         }
+    }
+
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }

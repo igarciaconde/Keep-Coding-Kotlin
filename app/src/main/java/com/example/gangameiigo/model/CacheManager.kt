@@ -2,6 +2,7 @@ package com.example.gangameiigo.model
 
 import com.example.mysdk.GangGameServiceApi
 import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -18,13 +19,13 @@ object CacheManager {
     }
 
 
-    fun getCacheRated(): io.reactivex.Observable<JsonArray> {
+    fun getCacheRated(): io.reactivex.Observable<JsonObject> {
         return apiService.serviceCacheApiClient.getRatedCache()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
     }
 
-    fun getCacheOwned(): io.reactivex.Observable<JsonArray> {
+    fun getCacheOwned(): io.reactivex.Observable<JsonObject> {
         return apiService.serviceCacheApiClient.getOwnedCache()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

@@ -5,7 +5,11 @@ import com.google.gson.JsonObject
 
 object TopGameMapper {
 
-    const val BASE_IMG_URL = "https://steamcdn-a.akamaihd.net/steam/apps/%s/capsule_184x69.jpg"
+    private const val BASE_IMG_URL = "https://steamcdn-a.akamaihd.net/steam/apps/%s/capsule_184x69.jpg"
+
+    fun formatPrice(price : Float) =
+        "$" + (price/100).toString()
+
 
     fun fromSdk(game : com.example.mysdk.TopGame, position: Int) :TopGame {
         return if(0 == game.price.compareTo(0.0))
@@ -16,8 +20,28 @@ object TopGameMapper {
             game.getOwner(), "$"+(game.price/100).toString(), game.designer, position)
     }
 
-    /*fun fromCache(json : JsonObject) = TopGame(json["name"].asString, String.format(BASE_IMG_URL,json["appid"]), json["average_forever"].asInt,
-        json["owners"].asInt, json["price"].asFloat, json["publisher"].asFloat)*/
+    fun fromCache(json : JsonObject, position: Int) : TopGame{
+        return if (0 == json["price"].asFloat.compareTo(0.0)) {
+            TopGame(json["name"].asString,
+                String.format(BASE_IMG_URL, json["appid"]),
+                json["average_forever"].asInt,
+                json["owners"].asString.dropWhile { !it.isWhitespace() }.drop(4),
+                "Free",
+                json["publisher"].asString,
+                position
+            )
+        }
+        else{
+            TopGame(json["name"].asString,
+                String.format(BASE_IMG_URL, json["appid"]),
+                json["average_forever"].asInt,
+                json["owners"].asString.dropWhile { !it.isWhitespace() }.drop(4),
+                formatPrice(json["price"].asFloat),
+                json["publisher"].asString,
+                position
+            )
+        }
+    }
 
 }
 
